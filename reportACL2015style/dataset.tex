@@ -1,0 +1,41 @@
+%!TEX root = causalityRetweetPropensity.tex
+
+
+ \section{Dataset} 
+ \label{sec:data}
+%1. Collection period: 2012-05 -- 2014-12
+%2. # Tweets : ~3.9Million
+%3. # (Key-Player) Twitter Handles: 61
+%4. Twitter data: Tweets/Retweets of Key-Players +Tweets/Retweets containing mentions of Key-player + Tweets which are replies to Key-Players
+%5. Enrichment : Geolocated + Basis NLP Enriched 
+ 
+ 
+The dataset consists of a collection of tweets from the time period May 2012 to December 2014. We focus on the political organizations of Latin America and identify a set of 63 organizations that include individual politicians and political groups, for example, anarchists. The politicians are mainly from countries like Venezuela, Columbia, Mexico, and so on. 
+The tweets were collected using the twitter API, based on these 63 organizations of interest. The tweets included :
+ \begin{itemize}
+ \item Tweets by the organizations
+ \item Tweets that mention these organizations
+ \end{itemize}
+
+The data has the follwing information :
+\begin{itemize}
+\item[1.] Time of the tweet
+\item[2.] Retweet or not ?
+\item[3.] User details : Location, counts of tweets posted, followers, friends, klout score
+\item[4.] Mentions : list of screennames and corresponding ids of users mentioned in the tweet (When a tweet by a user, includes the username of another user, it is called a 'mention'.)
+\item[5.] Retweet count : Number of times the tweet has been retweeted
+\item[6.] GeoLocation Enrichment
+\begin{itemize}
+\item Latitude, longitude
+\item Location/country
+\end{itemize}
+\item[7.] Basis Enrichment
+\begin{itemize}
+\item The tweets are tokenized and tagged with Parts-of-Speech tags
+\item Entities identified if any, i.e., if an expression in the tweet is an organization  or an individual or a URL.
+\item Noun-phrases identified.
+\end{itemize}
+\item[8.] Sentiment score : computed by a third party \footnote{http://datasift.com}. These scores range from -24 to 24 and are mapped to values between [0,1], as detailed in the experiments section.
+\end{itemize}
+
+Approximately 6.9 million tweets were collected, that had about 10,400 tweets by the organizations, and the rest being the tweets mentioning these organizations.

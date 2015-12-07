@@ -1,0 +1,129 @@
+%!TEX root = ramesh-acl15.tex
+\section{Problem Setting and Data}
+
+\begin{table} [t] %JF - always put tables and figures at the top of a page, using [t]
+%\begin{center}
+\scriptsize{
+\begin{tabular}{|p{7.5cm}|}
+\hline
+    \scriptsize{Post 1: I have not received the \textbf{midterm} what to do for \textbf{questions}?}  \\
+    \scriptsize{Post 2: No \textbf{lecture} \textbf{subtitles} week, will they be uploaded?}  \\ 
+    \scriptsize{Post 3: I am ... and I am looking forward to learn more about ...}  \\   
+\hline
+    \end{tabular}
+    }
+    \vspace{-0.35cm}
+    \caption{Example posts from MOOC forums. Aspect words are highlighted in \textbf{bold}.}
+  \label{table:moocposts}
+\vspace{-0.4cm}
+\end{table}
+
+%Discussion forums are the primary means of communication for MOOC participants. %JF - we said this already.
+MOOC participants primarily communicate through discussion forums, consisting of posts, which are short pieces of text.  Table \ref{table:moocposts} provides examples of posts in MOOC forums. Posts \textit{1} and \textit{2} report issues and feedback for the course, while post \textit{3} is a social interaction message. Our goal is to distinguish \textit{problem-reporting} posts such as \textit{1} and \textit{2} from \textit{social} posts such as \textit{3}, and to \textit{identify the issues} that are being discussed.  
+
+We formalize this task as an \emph{aspect-sentiment} prediction problem \cite{booksliu}.  The issues reported in MOOC forums can be related to the different elements of the course such as \textit{lectures} and \textit{quizzes}, which are referred to as \textit{aspects}.  The task is to predict these aspects for each post, along with the \textit{sentiment} polarity toward the aspect, which we code as \textit{positive}, \textit{negative}, or \textit{neutral}.  The negative-sentiment posts, along with their aspects, allow us to identify potentially correctable issues in the course. As labels are expensive in this scenario, we formulate the task as unsupervised prediction.
+In our work, we assume that a post has at most one fine-grained aspect, as we found that this was true for 90\% of the posts in our data. %JF - is this 90\% of the posts that had an aspect, or 90\% of posts overall? It would be good to clarify this.
+This property is due in part to the brevity of forum posts, which are much shorter documents than those considered in other aspect-sentiment scenarios such as product reviews.
+%Detecting aspects in MOOC discussion forums can help in initiating instructor interventions, increasing student retention, and improving the overall experience of MOOC participants. %JF - we said this already.
+
+
+% \noindent {\it The goal of our work is to predict the fine aspect, coarse aspect, and sentiment for each post in an unsupervised manner.}
+
+\subsection{Aspect Hierarchy}
+ \label{sec:aspects}
+While we do not require labeled data, our approaches allow the analyst to instead relatively easily encode a small amount of domain knowledge by seeding the models with a few words relating to each aspect of interest.
+Our models can further make use of hierarchical structure between the aspects.
+The proposed approach is flexible, allowing the aspect seeds and hierarchy to be selected for a given MOOC domain.
+
+For the purposes of this study we represent the MOOC aspects with a two-level hierarchy.
+We identified a list of \textit{nine} fine-grained aspects, which are grouped into \textit{four} coarse topics. %For example, \textsc{quiz-submission} refers to the submission of assignments, quizzes and exams.  Table \ref{table:moocaspects} gives a complete list of our aspects and their description.
+The \textit{coarse} aspects consist of \textsc{lecture}, \textsc{quiz}, \textsc{certificate}, and \textsc{social} topics.
+Table \ref{table:moocaspects} provides a description of each of the aspects and also gives the number of posts in each aspect category after annotation.
+
+\begin{table} [t]
+\centering
+\tiny{
+\begin{tabular}{p{2.0cm}p{2.0cm}p{2.0cm}p{1.2cm}}
+\toprule
+\multicolumn{1}{l}{\textsc{coarse-topic}} & \multicolumn{1}{l}{\textsc{fine-topic}} & Description & \# of posts  \\
+\toprule
+
+\multicolumn{1}{l}{\multirow{4}{*}{\textsc{lecture}}} &
+\multicolumn{1}{l}{\textsc{lecture-content}} & Content of lectures. & 559    \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{\textsc{lecture-video}} & Video of lectures. & 215   \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{\textsc{lecture-subtitles}} & Subtitles of lecture. &  149    \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{{\textsc{lecture-audio}}}  & Audio of lecture. & 136  \\ 
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{\textsc{lecture-lecturer}}  & Delivery of instructor.  & 69    \\
+
+ \midrule
+
+
+\multicolumn{1}{l}{\multirow{3}{*}{\textsc{quiz}}} &
+\multicolumn{1}{l}{\textsc{quiz-content}}  & Content in quizzes. & 439  \\
+ \multicolumn{1}{c}{} &
+\multicolumn{1}{l}{\textsc{quiz-grading}} & Grading of quizzes. & 360  \\ 
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{\textsc{quiz-submission}}  & Quiz submission. & 329  \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{\textsc{quiz-deadline}}  & Deadline of quizzes. & 142  \\
+
+ \midrule
+\multicolumn{1}{l}{\multirow{1}{*}{\textsc{certificate}}} & 
+\multicolumn{1}{l}{\textsc{}} & Course certificates. & 194   \\ 
+ \midrule
+\multicolumn{1}{l}{\multirow{1}{*}{\textsc{social}}} &
+\multicolumn{1}{l}{\textsc{}} & Social interaction posts. & 1187   \\ 
+\bottomrule
+\end{tabular}
+}
+\caption{Fine aspects and their descriptions.}
+\label{table:moocaspects}
+\end{table}
+\mbox{}
+
+
+As both \textsc{lecture} and \textsc{quiz} are key coarse-level aspects in online courses, and more nuanced aspect information for these is important to facilitate instructor interventions, we identified fine-grained aspects for these topics. For \textsc{lecture} we identified \textsc{lecture-content}, \textsc{lecture-video}, \textsc{lecture-audio}, \textsc{lecture-subtitles}, and \textsc{lecture-lecturer} as fine aspects. For \textsc{quiz}, we identified the fine aspects \textsc{quiz-content}, \textsc{quiz-grading}, \textsc{quiz-deadlines}, and \textsc{quiz-submission}. We use the label \textsc{social} to refer to social interaction posts that do not mention a problem-related aspect.  
+  
+
+%JF - I didn't understand the purpose of the following paragraph. Of course these categories are different.  Are you trying to say that models might find these distinctions challenging?  This probably isn't the right place to say this.  Maybe it could be discussed in the experiments.----
+%It is important to note that we distinguish between certain fine categories of MOOC aspects such as---\textsc{lecture-content} and \textsc{quiz-content}, both contain similar course specific words but refer to two different course elements, \textit{lecture} and \textit{quiz}. We also differentiate between \textsc{lecture-audio}, and \textsc{lecture-video}. Even though both \textit{audio} and \textit{video} are part of the lectures, we distinguish between audio and video in our dataset and models capturing fine-grained detail on MOOC aspects. Along with MOOC aspects, annotators also annotated the posts for \textit{sentiment---positive, negative, and neutral} toward the particular aspect.
+
+ \subsection{Dataset} 
+ \label{sec:data}
+
+We constructed a dataset by sampling posts from MOOC courses to capture the variety of aspects discussed in online courses. We included courses from different disciplines (business, technology, history, and the sciences) to ensure broad coverage of aspects.
+Although we adopt an unsupervised prediction approach, which is important for most practical MOOC scenarios, in order to validate our methods we obtained labels for a subset of the data using \textit{Crowdflower},\footnote{http://www.crowdflower.com/} an online crowd-sourcing annotation platform. Each post was annotated by at least 3 annotators. Crowdflower calculates \textit{confidence} in labels by computing trust scores for annotators using test questions. Kolhatkar et al. \shortcite{annotation} provide a detailed analysis of Crowdflower trust calculations and the relationship to inter-annotator agreement. We follow their recommendations and retain only labels with \textit{confidence} $>$ $0.5$.
+
+%\begin{table*} [ht!]
+%\centering
+%%\parbox{.80\linewidth}{
+%
+%\scriptsize{
+%\begin{tabular}{p{3cm}p{6cm}}
+%    \toprule
+% MOOC-aspect & Description \\
+%    \midrule
+%\textsc{lecture-content} &  course material content \\
+%\textsc{lecture-video} & lecture video quality, access issues\\ 
+%\textsc{lecture-subtitles} & subtitles of the lecture videos \\
+%\textsc{lecture-audio} &  audio quality of lectures \\ 
+%\textsc{lecture-lecturer} & lecture delivery of the instructor \\
+%\textsc{quiz-content} &  course material content in quizzes \\ 
+%\textsc{quiz-grading} &  grading of quizzes, assignments \\ 
+%\textsc{quiz-submission} & quiz  and assignment submission \\ 
+%\textsc{quiz-deadline} & queries about quiz deadline \\ 
+%\textsc{certificate} & certificates, final grades \\ 
+%\textsc{social} & social interaction posts that don't discuss a particular MOOC aspect \\ 
+%    \bottomrule
+%    \end{tabular}
+%    }
+%    \vspace{-0.35cm}
+%      \caption{MOOC aspects and their description}
+%  \label{table:moocaspects}
+%\vspace{-0.4cm}
+%\end{table*}
+
