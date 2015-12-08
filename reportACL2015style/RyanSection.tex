@@ -1,5 +1,80 @@
 %!TEX root = causalityRetweetPropensity.tex
-\section{Ryan Section}
+\section{Social Metrics Influence on Retweet Propensity}
+\subsection{Motivation}
+After identifying the possible influence directions of each metric, it has yet to be discovered the magnitude or quantified effect of each variable. A key aspect of causal inference is to find the causal estimates associated with the cause of interest [Rubin 2005]. The previous section gives a structure to test, where in this section the causal estimates will be explored. 
+
+Since we are testing the causal structure that was outputted from the PC algorithm, the main causes of interest are going to be the following three variables: User Friends Count, User Followers Count, and User Status Count. These three variables will be examined for their influence on the propensity to retweet. Propensity to retweet is measured as the total amount of retweets made divided by the total amount of tweets. $Propensity to retweet = \frac{Total Number of Retweets}{Total Number of Tweets}$
+
+These variables were choosen due to the interesting triangle structure they form around retweeting within the PC output. Each variable has some affect over each other while also having a relationship with retweeting. Finding the causal estimates also serves as a testing method for the PC algorithm, checking if the relationship given is actually observable. 
+\subsection{Data}
+The dataset for this subsection needed to be a reduced set of the data described above in order for the procedure to be computational tractable. A subsample was made thorugh a random sample of the main dataset, taking 15% of the main data set, thus giving around 1,041,000 tweets within this subsample. Furthermore, tweets that were missing data on Friends Count, Followers Count, and Status Count were removed. The simply the analysis and provide a distinguishable result, each variable of interest was reduced to two bins, High or Low. This binning was completed through comparing the user measure to the median within the overall distribution of each metric. For example: If user A has a Friends Count less than the median Friends Count, they would be classified as having a Low Friends Count.
+\subsection{Method}
+ Effect sizes can name be compared across multiple bins of social measures and allow for tractable conditioning across each variable. Conditioning is needed to discover the true effect for each variable of interest. As stated in previous work, confounding variables can bias causal results due to the effect of the confounder being passed through to the variable of interest. As shown within the PC output, the possible confounders for these three metrics can be each other, therefore allowing us to condition on said variables to discover any causal effects.
+\subsection{Results}
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{
+>{\columncolor[HTML]{9B9B9B}}c ll}
+\multicolumn{1}{l}{\cellcolor[HTML]{9B9B9B}\textbf{Individual Effects}} & \cellcolor[HTML]{3166FF}\textbf{High} & \cellcolor[HTML]{34CDF9}\textbf{Low} \\
+\textbf{Friends Count}                                                  & 0.67                                  & 0.72                                 \\
+\textbf{Followers Count}                                                & 0.71                                  & 0.77                                 \\
+\textbf{Status Count}                                                   & 0.72                                  & 0.79                                
+\end{tabular}
+\end{table}
+
+First to be examined is individual effect sizes. Table XX shows that for each metric, there is a higher level of retweeting when the metric is lower. Thus saying that twitter users that have a lower number of friends, a lower number of followers, and a lower number of statuses, will then retweet more. Followers and Status Count have higher effect sizes of 0.06 and 0.07 increases in retweeting propensity compared to Friends Count having only a 0.05 increase. 
+
+Discussion points: Social metrics indicate that lack of creating one's own content may be an indicator of being less socially involved. People don't want to follow people who only repeat information. 
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{
+>{\columncolor[HTML]{9B9B9B}}c llll}
+\multicolumn{1}{l}{\cellcolor[HTML]{9B9B9B}\textbf{One Level Conditioning}} & \multicolumn{2}{c}{\cellcolor[HTML]{3166FF}\textbf{High}}                    & \multicolumn{2}{c}{\cellcolor[HTML]{34CDF9}\textbf{Low}}                     \\
+\multicolumn{1}{l}{\cellcolor[HTML]{9B9B9B}\textbf{Effect Level}}           & \cellcolor[HTML]{3166FF}\textbf{High} & \cellcolor[HTML]{34CDF9}\textbf{Low} & \cellcolor[HTML]{3166FF}\textbf{High} & \cellcolor[HTML]{34CDF9}\textbf{Low} \\
+\textbf{Friends | Followers}                                                & 0.66                                  & 0.65                                 & 0.71                                  & 0.73                                 \\
+\textbf{Friends | Status}                                                   & 0.65                                  & 0.67                                 & 0.72                                  & 0.73                                 \\
+\textbf{Followers | Friends}                                                & 0.66                                  & 0.71                                 & 0.65                                  & 0.73                                 \\
+\textbf{Followers | Status}                                                 & 0.68                                  & 0.77                                 & 0.77                                  & 0.76                                 \\
+\textbf{Status | Friends}                                                   & 0.65                                  & 0.72                                 & 0.67                                  & 0.73                                 \\
+\textbf{Status | Followers}                                                 & 0.68                                  & 0.77                                 & 0.77                                  & 0.76                                
+\end{tabular}
+\end{table}
+
+Next, is to condition each effect on a level of the other metrics. Since there are three metrics of interest, this means each metric will need to be conditioned two times. Table XX shows the results of such conditioning. When conditioning on the other metrics, the effect previously found from Friends Count is no longer existing. Friends when conditioned on either Followers or Status, produces no effect on Retweet Propensity. However, when Followers and Status are both conditioned on Friends Count, the effects still remain. This table does show an interesting interaction existing between Followers and Status. When Followers are conditioned on Status, Followers Count was found to effect the level of Retweeting by a factor of 0.09 when Status is High, but when Status is Low, that effect is no longer present. This is represented as the inverse when Status is conditioned on Followers. 
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{
+>{\columncolor[HTML]{9B9B9B}}c ll}
+\multicolumn{1}{l}{\cellcolor[HTML]{9B9B9B}\textbf{Two Level Conditioning}} & \cellcolor[HTML]{3166FF}\textbf{High} & \cellcolor[HTML]{34CDF9}\textbf{Low} \\
+\textbf{Friends | Followers, Status}                                        & 0.702                                 & 0.701                                \\
+\textbf{Followers | Friends, Status}                                        & 0.683                                 & 0.72                                 \\
+\textbf{Status | Friends, Followers}                                        & 0.677                                 & 0.726                               
+\end{tabular}
+\end{table}
+
+Finally, the effects are examined used a two level conditioning. Here each metric is conditioned on both of the remaining metrics. The effects are combined averages of the variable of interests condition across all possible conditions for the conditioning variables. So within this table, the cell for when Friends is High is an averaged effect of when Friends is High across all possible conditions for both Followers and Status. Table XX shows these results. As before, the effect from Friends Count is no longer present, while Followers and Status are showing significant differences in Retweet propensity. Even with the interaction present, different levels of Followers and Status counts effect the level of Retweeting.
+
+Discussion Point: Followers and Status have an interaction indicating they are related. This is shown to be true within the PC output. This may be due to content creation from users (measured as Status Count) can be influencial in the number of Followers a user may receive.
+
+
 \begin{itemize}
 \item motivation
 \item data
