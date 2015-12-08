@@ -1,11 +1,14 @@
 %!TEX root = causalityRetweetPropensity.tex
 \section{Introduction}
 \label{sec:introduction}
-\begin{itemize}
-\item About twitter - why causal study on twitter
-\item Aim of the project
-\item 3 stages in the study : describe , and why these stages
-\item causal discovery
-\item magnitude of causal effects
-\item homophily/contagion 
-\end{itemize}
+
+Social media services, such as Twitter, can be used by organizations to spread messages through online word-of-mouth communications.  A critical part of such communication efforts is engagement, the sum of actions performed by the organizational followers after receiving a Tweet.  Engagement is the sum of re-tweets, likes and mentions received by the message sender.  Engagement is important because it measures how effective the word-of-mouth communication was with the sender’s followers, a gate to a much broader audience.  In this project we will focus on analyzing potential causes for re-tweets.  
+
+
+To accomplish this, this project has three separate stages. 
+\begin{enumerate}
+\item To find any potential causal structures from observational data. The dataset used is observational which create many challenges for discovering causal effects since the data collection did not take that into account like an experimental setting would allow. To find potential strucutres, an algorithmic procedure (cite PC paper) will be used. 
+\item Once a possible causal structure has been found, it will be needed to examine the magnitude or quantifiable influence that variables have on each other. To accomplish this, conditioning on potential effect sizes as referenced within (Cite Rubin Paper) can be used to account for possible confounding factors. 
+\item Based on the previous findings of this project, possible social effects may be occurring, this section will attempt to model those social effects in their power to predict propensity to retweet. 
+\end{enumerate}
+
