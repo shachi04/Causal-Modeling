@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  7 DEC 2015 10:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  8 DEC 2015 11:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -257,34 +257,57 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 38.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)) (./Methods.tex)
-(./model.tex) (./results.tex) (./discussion.tex)
+))
+(./RyanSection.tex) (./ShachiSection.tex
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ™ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ¢ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ¢ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ¢ in font ptmr7t!
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+
+ []
+
+<pc.png, id=1, 1059.96pt x 733.74126pt>
+File: pc.png Graphic file (type png)
+ <use pc.png>
+Package pdftex.def Info: pc.png used on input line 18.
+(pdftex.def)             Requested size: 211.98824pt x 146.74565pt.
+) (./DiegoSection.tex)
+(./Methods.tex) (./model.tex) (./results.tex) (./discussion.tex)
 No file causalityRetweetPropensity.bbl.
 [1
 
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./causalityRetweetPropensity.aux)
+[2
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+ <./pc.png>] (./causalityRetweetPropensity.aux) ) 
 Here is how much of TeX's memory you used:
- 2425 strings out of 493117
- 33383 string characters out of 6135433
- 97572 words of memory out of 5000000
- 5812 multiletter control sequences out of 15000+600000
+ 2441 strings out of 493117
+ 33607 string characters out of 6135433
+ 101573 words of memory out of 5000000
+ 5818 multiletter control sequences out of 15000+600000
  19046 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,8n,23p,410b,225s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014
-/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on causalityRetweetPropensity.pdf (1 page, 38509 bytes).
+ 38i,8n,23p,517b,277s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2014/texmf
+-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2014/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type
+1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/time
+s/utmr8a.pfb>
+Output written on causalityRetweetPropensity.pdf (2 pages, 147948 bytes).
 PDF statistics:
- 21 PDF objects out of 1000 (max. 8388607)
- 14 compressed objects within 1 object stream
+ 25 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
