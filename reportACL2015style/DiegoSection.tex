@@ -13,7 +13,7 @@ The PSL program described in the introduction contained the following rules:
 
 1. Estimating Homophily Strength: The higher the number of “Organization” mentions by an “Individual A” implies a higher propensity for “Individual A” to retweet messages posted by the “Organization”. 
 
-m.add rule : ( PostedInd(U,M) & HasGroupMention(M,G) ) >> RetweetedGroup(U),  weight : 1
+m.add rule : ( PostedInd(U,M) \& HasGroupMention(M,G) ) >> RetweetedGroup(U),  weight : 1
 
 Where:
 U is an individual
@@ -22,9 +22,9 @@ M is the tweet
 
 2. Estimating Contagion: The higher the number of mentions received by an “Individual A” implies a higher propensity for “Individual A” to retweet messages posted by the “Organization”.  “Individual A” has been identified (outside of PSL) as belonging to the social network associated with the “Organization”.  Versions of this rule include adjustments for the sentiment of the tweets.
 
-m.add rule : ( PostedInd(U1,M) & Mentions(M,U2) ) >> RetweetedGroup(U2),  weight : 1
-m.add rule : ( PostedInd(U1,M) & Mentions(M,U2) & Positive(M) ) >> RetweetedGroup(U2),  weight : 1
-m.add rule : ( PostedInd(U1,M) & Mentions(M,U2) & Negative(M) ) >> ~RetweetedGroup(U2),  weight : 1
+m.add rule : ( PostedInd(U1,M) \& Mentions(M,U2) ) >> RetweetedGroup(U2),  weight : 1
+m.add rule : ( PostedInd(U1,M) \& Mentions(M,U2) \& Positive(M) ) >> RetweetedGroup(U2),  weight : 1
+m.add rule : ( PostedInd(U1,M) \& Mentions(M,U2) \& Negative(M) ) >> ~RetweetedGroup(U2),  weight : 1
 
 Where:
 U1 and U2 are individuals
@@ -32,7 +32,10 @@ G is the group
 M is the tweet
 
 A graphical interpretation of the rules can be observed in Figure XX.  
-\includegraphics[100,100]{PSL_model.jpeg}
+\begin{figure}
+\includegraphics[scale=0.5]{PSL_model}
+\caption{PSL Rules}
+\end{figure}
 
 The propensity to retweet in the training set was calculated following the procedure below:
 
@@ -47,7 +50,19 @@ We run two sub-experiments on the data.  In the first one, we discretized the pr
 Figure 2 and 3 shows the results of the observational study performed on the discretized and non-discretized propensity scores respectively. It displays the actual and predicted propensity to retweet calculated as described in the previous section.   The effect are small as suggested by the slop of the best fit lines, but the effect are statistically significant with p values of 2.2e-16 in both cases.  The low R-squared values indicate the model fits the data poorly as expected.  
 
 The probability of an individual to retweet a message from an organization is very difficult to predict because it is the result of a very complex process involving several factors, many of which are latent.  The complete understanding of the process probably involves factors related to the Organization such as its political stance, popularity and the strength of its following.  Factor related to the message are most likely very important, such us the topic (or how interesting the topic is to the intended audience), the language used (funny, motivating, informative).  Factors related to the receiver such as its propensity to retweet, gender, age, culture and individual interests are all also likely very important.  
-\includegraphics[100,100]{PredictedvActual_binning.jpeg}
-\includegraphics[100,100]{R2_results_binning.jpeg}
-\includegraphics[100,100]{PredictedvActual.jpeg}
-\includegraphics[100,100]{R2_results.jpeg}
+\begin{figure}
+\includegraphics[scale=0.4]{PredictedvActual_binning}
+\caption{Predicted vs. Actual Propensity to Retweet by Individuals (discretized propensities)}
+\end{figure}
+\begin{figure}
+\includegraphics[scale=0.7]{R2_results_binning}
+\caption{Predicted vs. Actual Propensity to Retweet by Individuals (discretized propensities)}
+\end{figure}
+\begin{figure}
+\includegraphics[scale=0.4]{PredictedvActual}
+\caption{Predicted vs. Actual Propensity to Retweet by Individuals (discretized propensities)}
+\end{figure}
+\begin{figure}
+\includegraphics[scale=0.7]{R2_results}
+\caption{Predicted vs. Actual Propensity to Retweet by Individuals (discretized propensities)}
+\end{figure}
